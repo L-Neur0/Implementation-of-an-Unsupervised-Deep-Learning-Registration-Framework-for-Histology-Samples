@@ -12,7 +12,7 @@
 
 
 
-## Guida alla Installazione
+
 
 
 
