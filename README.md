@@ -1,21 +1,15 @@
 # NL2 DeepHistRegProject
 
-Colab link:https://colab.research.google.com/notebooks/intro.ipynb
+This is the project for our course 'Progetto Ingegneria Informatica' in collaboration with NecstLab.
+Accademic tutor: Marco Domenico Santambrogio.
 
-## To-Do List
-
-- [ ] Implementare la funzionalità A
-
-
-## Note
-
-
-Repo originale: https://github.com/lNefarin/DeepHistReg 
+Contributors: 
+*Mattia Cestari
+*Valentina Pucci 
+*Lorenzo Sciarretta 
 
 
-CVHVH
-
-
+Our code is mainly provided by [DeeoHistReg](https://github.com/MWod/DeepHistReg) and the dataset was provided by the [AnhirGrandChallenge](https://anhir.grand-challenge.org/Data/).
 
 
 
