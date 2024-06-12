@@ -2,7 +2,8 @@
 
 This is the project for our course 'Progetto di Ingegneria Informatica', A.A. 2023/2024, in collaboration with NecstLab, Politecnico di Milano.
 
-Accademic tutor: Marco Domenico Santambrogio.
+Accademic tutor: Prof. Marco Domenico Santambrogio.
+Supervisors: Isabella Poles; Eleonora D'Arnese.
 
 Contributors:
 
@@ -12,6 +13,7 @@ Contributors:
 
 
 Our code is mainly provided by [DeepHistReg](https://github.com/MWod/DeepHistReg) and the dataset was provided by the [AnhirGrandChallenge](https://anhir.grand-challenge.org/Data/).
+
 
 
 
