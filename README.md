@@ -22,7 +22,6 @@ Annotations were provided by nine annotators, with an average of 86 landmarks pe
 
 The dataset size was reduced to 252 images to speed up the training process.
 
-![Example Image](image.png)
 
 ## Code
 In the `CODE` folder, there are files for loading the data (`dataloaders`) and performing the preprocessing (`prepare_preprocessing`), as well as files for initial alignment, affine registration, and non-rigid registration.
@@ -36,6 +35,9 @@ For the non-rigid registration, we used a GPU in a second Google Colab notebook,
 2. [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://drive.google.com/file/d/1Kz__5ALrT90MIsth0ntrIC5lo4OBzylB/view?usp=sharing)
 
 In conclusion, you will find all the final results in the first Colab notebook.
+
+<img src="image.png" alt="Example Image" width="300"/>
+
 
 ## Acknowledgments
 Our code is mainly based on the [DeepHistReg](https://github.com/MWod/DeepHistReg) software by Marek Wodzinski and Henning Müller.
