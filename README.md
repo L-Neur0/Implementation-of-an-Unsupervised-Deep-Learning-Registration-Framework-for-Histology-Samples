@@ -22,6 +22,8 @@ Annotations were provided by nine annotators, with an average of 86 landmarks pe
 
 The dataset size was reduced to 252 images to speed up the training process.
 
+![Example Image](image.png)
+
 ## Code
 In the `CODE` folder, there are files for loading the data (`dataloaders`) and performing the preprocessing (`prepare_preprocessing`), as well as files for initial alignment, affine registration, and non-rigid registration.
 
