@@ -393,8 +393,13 @@ def get_gaussian_kernel(kernel_size=3, sigma=2, channels=3):
     gaussian_filter.weight.requires_grad = False
     return gaussian_filter
 
+
+# questa funzione prende un tensore di input e una trasformazione affine, e applica la trasformazione al tensore di input producendo un nuovo tensore trasformato.
 def tensor_affine_transform(tensor, tensor_transform):
+    #genera una griglia di coordinate spaziali normalizzate (in forma di griglia affine) basata sulla trasformazione affine specificata in tensor_transform e sulle dimensioni del tensore di input tensor.
     affine_grid = F.affine_grid(tensor_transform, tensor.size())
+    # utilizza la griglia affine generata per eseguire l'interpolazione bilineare del tensore di input tensor utilizzando le coordinate fornite dalla griglia affine. 
+    # Ciò significa che il tensore di output avrà le stesse dimensioni del tensore di input, ma i valori dei pixel saranno interpolati in base alle coordinate specificate dalla griglia affine.
     transformed_tensor = F.grid_sample(tensor, affine_grid)
     return transformed_tensor
 

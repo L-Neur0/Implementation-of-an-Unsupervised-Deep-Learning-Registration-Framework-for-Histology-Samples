@@ -12,8 +12,8 @@ import utils
 original_data_path = paths.original_data_path 
 csv_path = paths.csv_path
 
-results_path = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/step3' # Path to the results (from main.py)
-submission_path = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/submission' # Path where submission should be saved
+results_path = '/Users/valentinapucci/DeepHistReg/step3' # Path to the results (from main.py)
+submission_path = '/Users/valentinapucci/DeepHistReg/SUBMISSION2' # Path where submission should be saved
 
 
 def prepare_submission():
@@ -22,7 +22,7 @@ def prepare_submission():
     output_csv_path = os.path.join(submission_path, "registration-results.csv")
     prepare_output_csv(csv_path, output_csv_path)
 
-    ids = range(315, 339)
+    ids = range(0, 237)
     for current_id in ids:
         current_id = str(current_id)
         case_path = os.path.join(submission_path, current_id)
@@ -75,7 +75,7 @@ def prepare_submission():
         original_target_path = os.path.join(original_data_path, org_target_path)
 
         def get_size(path):
-            reader = sitk.ImageFileReader()
+            reader = sitk.ImageFileReader()p
             reader.SetFileName(path)
             reader.LoadPrivateTagsOn()
             reader.ReadImageInformation()

@@ -15,7 +15,7 @@ import paths
 
 def parse_dataset(csv_path, dataset_path, output_path, masks_path=None):
     output_max_size = 4096
-    show = False
+    show = True
 
     csv_file = pd.read_csv(csv_path)
     for current_case in csv_file.iterrows():
@@ -218,8 +218,8 @@ def parse_dataset(csv_path, dataset_path, output_path, masks_path=None):
 
 
 def create_training_dataset(results_path, dataset_path, size, mode='min'):
-    show = False
-    ids = range(315, 339)
+    show = True
+    ids = range(0, 237)
     for current_id in ids:
         current_id = str(current_id)
         case_path = os.path.join(results_path, current_id)
@@ -271,15 +271,21 @@ def create_training_dataset(results_path, dataset_path, size, mode='min'):
             plt.subplot(2, 2, 1)
             plt.imshow(source, cmap='gray')
             plt.axis('off')
+            plt.title("Source")
             plt.subplot(2, 2, 2)
             plt.imshow(transformed_target, cmap='gray')
             plt.axis('off')
+            plt.title("Transf target")
             plt.subplot(2, 2, 3)
             plt.imshow(source_resampled, cmap='gray')
             plt.axis('off')
+            plt.title("Resampled source")
             plt.subplot(2, 2, 4)
             plt.imshow(transformed_target_resampled, cmap='gray')
             plt.axis('off')
+            plt.title("Transf target resampled")
+            path = "/Users/valentinapucci/DeepHistReg/fig/step2.1/"
+            plt.savefig(os.path.join( path + str(current_id) + ".png"), bbox_inches = 'tight', pad_inches = 0)
             plt.show()
 
         to_save_source = sitk.GetImageFromArray(transformed_target_resampled)
@@ -297,8 +303,6 @@ def create_training_dataset(results_path, dataset_path, size, mode='min'):
 
 
 
-
-
 if __name__ == "__main__":
     # csv_path = paths.csv_path
     # dataset_path = paths.original_data_path
@@ -306,8 +310,8 @@ if __name__ == "__main__":
     # parse_dataset(csv_path, dataset_path, output_path, masks_path=None)
 
     # The purpose of the code below is to create training dataset for the next registration step (e.g. from rotation alignment to affine or from affine to nonrigid)
-    results_path = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/step3' 
-    dataset_path = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/step4' 
+    results_path = '/Users/valentinapucci/DeepHistReg/step2' 
+    dataset_path = '/Users/valentinapucci/DeepHistReg/step3' 
     size = 1024 # Max shape in the training dataset (useful for e.g. decreasing the resolution for initial rotation search or affine registration)
     create_training_dataset(results_path, dataset_path, size, "min")
 

@@ -20,15 +20,37 @@ import numpy as np
 # from networks import affine_network_attention as an # Uncomment and use instead of the simple network for the more accurate patch-based affine registration (at the cost of longer training/inference time)
 from networks import affine_network_simple as an
 
+import albumentations as A
 
-training_path = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/step3/training' # TO DEFINE
-validation_path = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/step3/evaluation' # TO DEFINE
+
+training_path = '/Users/valentinapucci/DeepHistReg/step3/training' # TO DEFINE
+validation_path = '/Users/valentinapucci/DeepHistReg/step3/evaluation' # TO DEFINE
 models_path = paths.models_path
 figures_path = paths.figures_path
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-def no_aug(source,target):
-    return source,target,np.eye(3)
+
+ 
+def albumentations_transform(source, target):   
+    min_translation = -0.005
+    max_translation = 0.005
+    min_rotation = -5
+    max_rotation = 5
+    min_shear = -0.0001
+    max_shear = 0.0001
+    min_scale = 0.9
+    max_scale = 1.15
+    transform = A.Compose([
+        A.ShiftScaleRotate(shift_limit=(min_translation, max_translation),
+                           scale_limit=(min_scale, max_scale),
+                           rotate_limit=(min_rotation, max_rotation),
+                           p=0.5)
+    ])
+    
+    augmented = transform(image=source, mask=target)
+    transformed_source = augmented['image']
+    transformed_target = augmented['mask']
+    return transformed_source, transformed_target
 
 
 def training(training_params):
@@ -45,29 +67,18 @@ def training(training_params):
     parameters = model.parameters()
     optimizer = optim.Adam(parameters, learning_rate)
     scheduler = optim.lr_scheduler.LambdaLR(optimizer, lambda epoch: decay_rate**epoch)
-
-    min_translation = -0.005
-    max_translation = 0.005
-    min_rotation = -5
-    max_rotation = 5
-    min_shear = -0.0001
-    max_shear = 0.0001
-    min_scale = 0.9
-    max_scale = 1.15
-    params = dict()
-    params['min_translation'] = min_translation
-    params['max_translation'] = max_translation
-    params['min_rotation'] = min_rotation
-    params['max_rotation'] = max_rotation
-    params['min_shear'] = min_shear
-    params['max_shear'] = max_shear
-    params['min_scale'] = min_scale
-    params['max_scale'] = max_scale
     
-    transforms = no_aug
-    #trasforms = auf.affine_augmentation(params, true)
+    # params = dict()
+    # params['min_translation'] = min_translation
+    # params['max_translation'] = max_translation
+    # params['min_rotation'] = min_rotation
+    # params['max_rotation'] = max_rotation
+    # params['min_shear'] = min_shear
+    # params['max_shear'] = max_shear
+    # params['min_scale'] = min_scale
+    # params['max_scale'] = max_scale
 
-    training_loader = dl.UnsupervisedLoader(training_path, transforms=transforms)
+    training_loader = dl.UnsupervisedLoader(training_path, transforms=albumentations_transform)
     validation_loader = dl.UnsupervisedLoader(validation_path, transforms=None) 
     training_dataloader = torch.utils.data.DataLoader(training_loader, batch_size = batch_size, shuffle = True, num_workers = 4, collate_fn = dl.collate_to_list_unsupervised)
     validation_dataloader = torch.utils.data.DataLoader(validation_loader, batch_size = batch_size, shuffle = True, num_workers = 4, collate_fn = dl.collate_to_list_unsupervised)
@@ -92,8 +103,8 @@ def training(training_params):
                 target = targets[i]
                 source = source.to(device)
                 target = target.to(device)
-                source = source + 0.00001*torch.randn((source.size(0), source.size(1))).to(device)
-                target = target + 0.00001*torch.randn((source.size(0), source.size(1))).to(device)
+                # source = source + 0.00001*torch.randn((source.size(0), source.size(1))).to(device)
+                # target = target + 0.00001*torch.randn((source.size(0), source.size(1))).to(device)
                 loss = cost_function(source, target, device=device, **cost_function_params)
                 initial_training_loss += loss.item()
     for sources, targets in validation_dataloader:
@@ -103,8 +114,8 @@ def training(training_params):
                 target = targets[i]
                 source = source.to(device)
                 target = target.to(device)
-                source = source + 0.00001*torch.randn((source.size(0), source.size(1))).to(device)
-                target = target + 0.00001*torch.randn((source.size(0), source.size(1))).to(device)
+                # source = source + 0.00001*torch.randn((source.size(0), source.size(1))).to(device)
+                # target = target + 0.00001*torch.randn((source.size(0), source.size(1))).to(device)
                 loss = cost_function(source, target, device=device, **cost_function_params)
                 initial_validation_loss += loss.item()
     print("Initial training loss: ", initial_training_loss / training_size)
@@ -124,8 +135,8 @@ def training(training_params):
                     target = targets[i]
                     source = source.to(device)
                     target = target.to(device)
-                    source = source + 0.00001*torch.randn((source.size(0), source.size(1))).to(device)
-                    target = target + 0.00001*torch.randn((source.size(0), source.size(1))).to(device)
+                    # source = source + 0.00001*torch.randn((source.size(0), source.size(1))).to(device)
+                    # target = target + 0.00001*torch.randn((source.size(0), source.size(1))).to(device)
                     calculated_transform = model(source.view(1, 1, source.size(0), source.size(1)), target.view(1, 1, target.size(0), target.size(1)))
                     transformed_source = utils.tensor_affine_transform(source.view(1, 1, source.size(0), source.size(1)), calculated_transform).view(source.size(0), source.size(1))
                     loss = cost_function(transformed_source, target, device=device, **cost_function_params)
@@ -148,8 +159,8 @@ def training(training_params):
                     target = targets[i]
                     source = source.to(device)
                     target = target.to(device)
-                    source = source + 0.00001*torch.randn((source.size(0), source.size(1))).to(device)
-                    target = target + 0.00001*torch.randn((source.size(0), source.size(1))).to(device)
+                    # source = source + 0.00001*torch.randn((source.size(0), source.size(1))).to(device)
+                    # target = target + 0.00001*torch.randn((source.size(0), source.size(1))).to(device)
                     calculated_transform = model(source.view(1, 1, source.size(0), source.size(1)), target.view(1, 1, target.size(0), target.size(1)))
                     transformed_source = utils.tensor_affine_transform(source.view(1, 1, source.size(0), source.size(1)), calculated_transform).view(source.size(0), source.size(1))
                     loss = cost_function(transformed_source, target, device=device, **cost_function_params)

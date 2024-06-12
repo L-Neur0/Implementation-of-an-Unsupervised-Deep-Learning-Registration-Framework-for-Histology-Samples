@@ -18,21 +18,21 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 dataset_path = paths.parsed_data_path
 
-## Identity - to create results without any registration (useful for creating the baseline)
-# output_path = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/step1' # TO DEFINE
-# dhr_params = dict()
-# dhr_params['segmentation_mode'] = "deep_segmentation"
-# dhr_params['initial_rotation'] = False
-# dhr_params['affine_registration'] = False
-# dhr_params['nonrigid_registration'] = False
-# segmentation_params = dict()
-# segmentation_params['model_path'] = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/models/MyModel/segmentation_model_512' # Path to segmentation model
-# dhr_params['segmentation_params'] = segmentation_params
-# load_masks = False
-##
+# Identity - to create results without any registration (useful for creating the baseline)
+output_path = '/Users/valentinapucci/DeepHistReg/step1' # TO DEFINE
+dhr_params = dict()
+dhr_params['segmentation_mode'] = "deep_segmentation"
+dhr_params['initial_rotation'] = False
+dhr_params['affine_registration'] = False
+dhr_params['nonrigid_registration'] = False
+segmentation_params = dict()
+segmentation_params['model_path'] = '/Users/valentinapucci/DeepHistReg/models/segmentation_model_512' # Path to segmentation model
+dhr_params['segmentation_params'] = segmentation_params
+load_masks = False
+#
 
-### Seg + Rotation Params - to create results from the initial rotation (useful for creating the affine training dataset)
-# output_path = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/step2' # TO DEFINE
+# ## Seg + Rotation Params - to create results from the initial rotation (useful for creating the affine training dataset)
+# output_path = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/02/step2' # TO DEFINE
 # dhr_params = dict()
 # dhr_params['segmentation_mode'] = "deep_segmentation"
 # dhr_params['initial_rotation'] = True
@@ -42,13 +42,13 @@ dataset_path = paths.parsed_data_path
 # initial_rotation_params['angle_step'] = 1
 # dhr_params['initial_rotation_params'] = initial_rotation_params
 # segmentation_params = dict()
-# segmentation_params['model_path'] = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/models/MyModel/segmentation_model_512' # Path to segmentation model
+# segmentation_params['model_path'] = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/02/models/segmentation_model_512' # Path to segmentation model
 # dhr_params['segmentation_params'] = segmentation_params
 # load_masks = False
-###
+# ##
 
-### Seg + Rotation Params + Affine - to create results from the initial rotation + affine registration (useful for creating the nonrigid training dataset)
-# output_path = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/step3' # TO DEFINE
+# ## Seg + Rotation Params + Affine - to create results from the initial rotation + affine registration (useful for creating the nonrigid training dataset)
+# output_path = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/02/step3' # TO DEFINE
 # dhr_params = dict()
 # dhr_params['segmentation_mode'] = "deep_segmentation"
 # dhr_params['initial_rotation'] = True
@@ -59,47 +59,47 @@ dataset_path = paths.parsed_data_path
 # dhr_params['initial_rotation_params'] = initial_rotation_params
 # affine_registration_params = dict()
 # models_path = paths.models_path
-# affine_registration_params['model_path'] = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/models/affine_model_512' # TO DEFINE
+# affine_registration_params['model_path'] = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/02/models/affine_model_512' # TO DEFINE
 # affine_registration_params['affine_type'] = "simple"
 # dhr_params['affine_registration_params'] = affine_registration_params
 # segmentation_params = dict()
-# segmentation_params['model_path'] = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/models/segmentation_model_512' # Path to segmentation model
+# segmentation_params['model_path'] = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/02/models/segmentation_model_512' # Path to segmentation model
 # dhr_params['segmentation_params'] = segmentation_params
 # load_masks = False
-###
+# ##
 
-### Seg + Rotation Params + Affine + Nonrigid - to create final nonrigid results
-output_path = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/step4'# TO DEFINE
-dhr_params = dict()
-dhr_params['segmentation_mode'] = "deep_segmentation"
-dhr_params['initial_rotation'] = True
-dhr_params['affine_registration'] = True
-dhr_params['nonrigid_registration'] = True
-initial_rotation_params = dict()
-initial_rotation_params['angle_step'] = 1
-dhr_params['initial_rotation_params'] = initial_rotation_params
-affine_registration_params = dict()
-models_path = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/models' # TO DEFINE
-affine_registration_params['model_path'] = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/models/affine_model_512' # TO DEFINE
-affine_registration_params['affine_type'] = "simple"
-dhr_params['affine_registration_params'] = affine_registration_params
-nonrigid_registration_params = dict() # Params used during training
-nonrigid_registration_params['stride'] = 128
-nonrigid_registration_params['patch_size'] = (256, 256)
-nonrigid_registration_params['number_of_patches'] = 32
-nonrigid_registration_params['num_levels'] = 3
-nonrigid_registration_params['inner_iterations_per_level'] = [3, 3, 3]
-nonrigid_registration_params['model_path'] = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/models/nonrigid_2048_level_3' # TO DEFINE
-dhr_params['nonrigid_registration_params'] = nonrigid_registration_params
-segmentation_params = dict()
-segmentation_params['model_path'] =  '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/models/segmentation_model_512' # TO DEFINE
-dhr_params['segmentation_params'] = segmentation_params
-load_masks = False
-###
+# ### Seg + Rotation Params + Affine + Nonrigid - to create final nonrigid results
+# output_path = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/02/step4'# TO DEFINE
+# dhr_params = dict()
+# dhr_params['segmentation_mode'] = "deep_segmentation"
+# dhr_params['initial_rotation'] = True
+# dhr_params['affine_registration'] = True
+# dhr_params['nonrigid_registration'] = True
+# initial_rotation_params = dict()
+# initial_rotation_params['angle_step'] = 1
+# dhr_params['initial_rotation_params'] = initial_rotation_params
+# affine_registration_params = dict()
+# models_path = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/models' # TO DEFINE
+# affine_registration_params['model_path'] = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/02/models/affine_model_512' # TO DEFINE
+# affine_registration_params['affine_type'] = "simple"
+# dhr_params['affine_registration_params'] = affine_registration_params
+# nonrigid_registration_params = dict() # Params used during training
+# nonrigid_registration_params['stride'] = 128
+# nonrigid_registration_params['patch_size'] = (256, 256)
+# nonrigid_registration_params['number_of_patches'] = 32
+# nonrigid_registration_params['num_levels'] = 3
+# nonrigid_registration_params['inner_iterations_per_level'] = [3, 3, 3]
+# nonrigid_registration_params['model_path'] = '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/02/models/nonrigid_2048_level_3' # TO DEFINE
+# dhr_params['nonrigid_registration_params'] = nonrigid_registration_params
+# segmentation_params = dict()
+# segmentation_params['model_path'] =  '/Volumes/TOSHIBA_EXT/NECST/DeepHistReg/02/models/segmentation_model_512' # TO DEFINE
+# dhr_params['segmentation_params'] = segmentation_params
+# load_masks = False
+# ###
 
 def run():
-    show = False
-    ids = range(315, 339)
+    show = True
+    ids = range(0, 237)
     for current_id in ids:
         b_loading = time.time()
         current_pair = str(current_id)
@@ -120,7 +120,7 @@ def run():
         loading_time = e_loading - b_loading
         print("Time for loading and memory transfer: ", loading_time)
         b_registration = time.time()
-        target, source, transformed_target, displacement_field, _ = dhr.deephistreg(target, source, device, dhr_params)
+        target, source, transformed_target , displacement_field, _ = dhr.deephistreg(target, source, device, dhr_params)
         e_registration = time.time()
         registration_time = e_registration - b_registration
         print("Time for registration: ", registration_time)
@@ -130,18 +130,25 @@ def run():
             plt.subplot(2, 3, 1)
             plt.imshow(source.cpu().numpy(), cmap='gray')
             plt.axis('off')
+            plt.title("Source")
             plt.subplot(2, 3, 2)
             plt.imshow(transformed_target.cpu().numpy(), cmap='gray')
             plt.axis('off')
+            plt.title("tranf target")
             plt.subplot(2, 3, 3)
             plt.imshow(target.cpu().numpy(), cmap='gray')
             plt.axis('off')
+            plt.title("Target")
             plt.subplot(2, 3, 4)
             plt.imshow(displacement_field[0, :, :].cpu().numpy(), cmap='gray')
             plt.axis('off')
+            plt.title("Ux")
             plt.subplot(2, 3, 5)
             plt.imshow(displacement_field[1, :, :].cpu().numpy(), cmap='gray')
             plt.axis('off')
+            plt.title("Uy")
+            path = "/Users/valentinapucci/DeepHistReg/fig/step1/"
+            plt.savefig(os.path.join( path + str(current_id) + ".png"), bbox_inches = 'tight', pad_inches = 0)
             plt.show()
 
         transformed_source_landmarks = utils.transform_landmarks(source_landmarks, displacement_field)
