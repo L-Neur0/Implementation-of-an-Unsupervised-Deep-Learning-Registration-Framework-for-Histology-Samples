@@ -36,7 +36,7 @@ For the non-rigid registration, we used a GPU in a second Google Colab notebook,
 
 In conclusion, you will find all the final results in the first Colab notebook.
 
-<img src="prepro.png" alt="Example Image" width="300"/>
+<img src="preprop.png" alt="Example Image" width="300"/>
 
 
 ## Acknowledgments
