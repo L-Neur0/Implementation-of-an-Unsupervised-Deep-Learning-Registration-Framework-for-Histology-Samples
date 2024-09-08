@@ -1,6 +1,11 @@
 # Implementation of an Unsupervised Deep Learning Registration Framework for Histology Samples with Varied Staining
 
 This is the project for our course 'Progetto di Ingegneria Informatica', A.A. 2023/2024, in collaboration with NecstLab, Politecnico di Milano.
+You can download our paper here >>  [Download the paper (PDF)](https://github.com/L-Neur0/Implementation-of-an-Unsupervised-Deep-Learning-Registration-Framework-for-Histology-Samples/blob/main/Paper.pdf)
+ 
+
+
+
 
 **Academic Tutor:** Prof. Marco Domenico Santambrogio  
 **Supervisors:** Isabella Poles, Eleonora D'Arnese
